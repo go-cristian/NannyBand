@@ -1,0 +1,20 @@
+<resources>
+  <string name="app_name">Nanny Band</string>
+  <string name="loading">Cargando</string>
+  <string name="retry_button">Reintentar</string>
+  <string name="login_username">Nombre de usuario</string>
+  <string name="login_password">Contraseña</string>
+  <string name="login_button">Iniciar</string>
+  <string name="login_register">Crear una cuenta</string>
+  <string name="login_error">Error al iniciar</string>
+  <string name="register_username">E-mail</string>
+  <string name="register_password">Contraseña</string>
+  <string name="register_password_repeat">Confirma tu contraseña</string>
+  <string name="register_button">Registrar</string>
+  <string name="register_error">Error al registrar</string>
+  <string name="register_valid_error">Comprueba tus datos</string>
+  <string name="location_title">Ubicación</string>
+  <string name="stats_title">Estado</string>
+  <string name="notifications_title">Notificaciones</string>
+  <string name="settings_title">Zonas seguras</string>
+</resources>

@@ -1,0 +1,56 @@
+<resources>
+
+  <!-- Base application theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <!-- Customize your theme here. -->
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:typeface">sans</item>
+  </style>
+
+
+  <style name="AppTheme.Stat.Title" parent="AppTheme">
+    <item name="android:textSize">16sp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/colorPrimary</item>
+  </style>
+
+  <style name="AppTheme.Stat.Value" parent="AppTheme">
+    <item name="android:textSize">20sp</item>
+    <item name="android:gravity">center</item>
+    <item name="android:textColor">@color/colorAccent</item>
+  </style>
+
+
+  <style name="AppTheme.Notification.Title" parent="AppTheme">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/colorPrimaryDark</item>
+  </style>
+
+  <style name="AppTheme.Notification.Subtitle" parent="AppTheme">
+    <item name="android:textSize">12sp</item>
+    <item name="android:textColor">@color/colorPrimary</item>
+  </style>
+
+  <style name="AppTheme.Notification.Hour" parent="AppTheme">
+    <item name="android:textSize">10sp</item>
+    <item name="android:textColor">@color/colorAccent</item>
+  </style>
+
+  <style name="AppTheme.SafetyZone.Title" parent="AppTheme">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/colorPrimaryDark</item>
+  </style>
+
+  <style name="AppTheme.TabLayout" parent="Widget.Design.TabLayout">
+    <item name="android:textSize">14sp</item>
+    <item name="android:textColor">@color/colorAccent</item>
+    <item name="tabSelectedTextColor">@android:color/black</item>
+  </style>
+
+  <style name="MyCustomTabText" parent="TextAppearance.AppCompat.Button">
+
+  </style>
+
+</resources>
