@@ -22,7 +22,7 @@ import dagger.Provides;
 @Module public class AuthModule {
   @Provides public Auth auth() {
     return new Auth() {
-      @Override public void login(String username, String password, Callback callback) {
+      @Override public void login(String password, Callback callback) {
         callback.onSuccess();
       }
     };

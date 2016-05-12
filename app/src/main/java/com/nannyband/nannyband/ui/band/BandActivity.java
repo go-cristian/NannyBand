@@ -25,7 +25,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
@@ -44,7 +43,6 @@ public class BandActivity extends BaseActivity {
     return new Intent(activity, BandActivity.class);
   }
 
-  @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.tabs) TabLayout tabs;
   @BindView(R.id.viewpager) ViewPager pager;
 
@@ -52,7 +50,6 @@ public class BandActivity extends BaseActivity {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.band);
     ButterKnife.bind(this);
-    setSupportActionBar(toolbar);
     pager.setAdapter(new Adapter(getSupportFragmentManager()));
     tabs.setupWithViewPager(pager);
     tabs.setTabMode(TabLayout.MODE_SCROLLABLE);

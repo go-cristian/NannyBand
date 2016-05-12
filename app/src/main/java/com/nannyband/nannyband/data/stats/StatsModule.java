@@ -26,7 +26,8 @@ import java.util.List;
     return new Stats() {
       @Override public void subscribe(Callback callback) {
         List<Stat> stats = new ArrayList<>();
-        stats.add(Stat.create("Ritmo cardiaco", "100 rpm"));
+        stats.add(Stat.create("Ritmo cardíaco", "70 LPM"));
+        stats.add(Stat.create("Temperatura", "36ºC"));
         callback.onSuccess(stats);
       }
 

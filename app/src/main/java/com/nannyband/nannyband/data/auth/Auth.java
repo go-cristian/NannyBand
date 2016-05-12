@@ -17,7 +17,7 @@
 package com.nannyband.nannyband.data.auth;
 
 public interface Auth {
-  void login(String username, String password, Callback callback);
+  void login(String password, Callback callback);
 
   abstract class Callback {
     public abstract void onSuccess();

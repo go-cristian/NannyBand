@@ -23,7 +23,6 @@ import com.nannyband.nannyband.data.auth.AuthModule;
 import com.nannyband.nannyband.data.configuration.BandSettingsModule;
 import com.nannyband.nannyband.data.location.BandLocationModule;
 import com.nannyband.nannyband.data.notifications.NotificationsModule;
-import com.nannyband.nannyband.data.register.RegisterModule;
 import com.nannyband.nannyband.data.session.BandSessionModule;
 import com.nannyband.nannyband.data.stats.StatsModule;
 
@@ -39,7 +38,6 @@ public class App extends Application {
         .bandSessionModule(new BandSessionModule())
         .bandSettingsModule(new BandSettingsModule())
         .notificationsModule(new NotificationsModule())
-        .registerModule(new RegisterModule())
         .statsModule(new StatsModule())
         .build();
   }

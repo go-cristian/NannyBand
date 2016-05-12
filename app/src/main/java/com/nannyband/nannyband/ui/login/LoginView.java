@@ -25,7 +25,5 @@ public interface LoginView {
 
   String password();
 
-  String username();
-
   void showLoading();
 }

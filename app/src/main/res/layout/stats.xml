@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:gravity="center"
   android:orientation="vertical"
   >
 
@@ -12,6 +13,6 @@
   <com.nannyband.nannyband.ui.band.stats.widget.StatsWidget
     android:id="@+id/stats"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     />
 </LinearLayout>

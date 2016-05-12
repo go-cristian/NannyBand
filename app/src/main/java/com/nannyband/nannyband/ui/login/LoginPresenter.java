@@ -30,7 +30,7 @@ public class LoginPresenter {
 
   public void login() {
     view.showLoading();
-    auth.login(view.username(), view.password(), new Auth.Callback() {
+    auth.login(view.password(), new Auth.Callback() {
       @Override public void onSuccess() {
         view.mainView();
       }

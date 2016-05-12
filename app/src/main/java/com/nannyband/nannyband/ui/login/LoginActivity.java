@@ -29,7 +29,6 @@ import com.nannyband.nannyband.R;
 import com.nannyband.nannyband.data.auth.Auth;
 import com.nannyband.nannyband.ui.BaseActivity;
 import com.nannyband.nannyband.ui.band.BandActivity;
-import com.nannyband.nannyband.ui.register.RegisterActivity;
 import javax.inject.Inject;
 
 import static android.view.View.GONE;
@@ -46,7 +45,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.login) View loginView;
-  @BindView(R.id.login_username) EditText usernameInputView;
   @BindView(R.id.login_password) EditText passwordInputView;
   private LoginPresenter presenter;
 
@@ -60,10 +58,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
   @OnClick(R.id.login_button) public void login() {
     presenter.login();
-  }
-
-  @OnClick(R.id.login_register) public void register() {
-    startActivityForResult(RegisterActivity.intent(this), CODE);
   }
 
   @Override public void mainView() {
@@ -81,10 +75,6 @@ public class LoginActivity extends BaseActivity implements LoginView {
 
   @Override public String password() {
     return passwordInputView.getText().toString();
-  }
-
-  @Override public String username() {
-    return usernameInputView.getText().toString();
   }
 
   @Override public void showLoading() {
