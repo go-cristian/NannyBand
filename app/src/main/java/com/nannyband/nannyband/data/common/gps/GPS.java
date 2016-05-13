@@ -14,14 +14,16 @@
  * is strictly forbidden unless prior written permission is obtained
  * from {The Company}.
  */
-package com.nannyband.nannyband.data.stats;
+package com.nannyband.nannyband.data.common.gps;
 
-import com.firebase.client.Firebase;
-import dagger.Module;
-import dagger.Provides;
+import android.location.Location;
 
-@Module public class StatsModule {
-  @Provides public Stats stats(Firebase firebase) {
-    return new FirebaseStats(firebase);
+public interface GPS {
+  void locate(Callback callback);
+
+  interface Callback {
+    void onLocated(Location location);
+
+    void onFailure();
   }
 }

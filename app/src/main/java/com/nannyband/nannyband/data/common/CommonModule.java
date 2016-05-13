@@ -14,14 +14,30 @@
  * is strictly forbidden unless prior written permission is obtained
  * from {The Company}.
  */
-package com.nannyband.nannyband.data.stats;
+package com.nannyband.nannyband.data.common;
 
 import com.firebase.client.Firebase;
+import com.nannyband.nannyband.App;
+import com.nannyband.nannyband.BuildConfig;
+import com.nannyband.nannyband.data.common.gps.AndroidGPS;
+import com.nannyband.nannyband.data.common.gps.GPS;
 import dagger.Module;
 import dagger.Provides;
 
-@Module public class StatsModule {
-  @Provides public Stats stats(Firebase firebase) {
-    return new FirebaseStats(firebase);
+@Module public class CommonModule {
+
+  private final App app;
+
+  public CommonModule(App app) {
+    this.app = app;
+  }
+
+  @Provides Firebase firebase() {
+    Firebase.setAndroidContext(app);
+    return new Firebase(BuildConfig.BASE_URL);
+  }
+
+  @Provides GPS gps() {
+    return new AndroidGPS(app);
   }
 }

@@ -35,15 +35,15 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class BandSettingFragment extends BaseFragment implements BandSettingView {
-  public static BaseFragment create() {
-    return new BandSettingFragment();
-  }
-
   @Inject BandSettings settings;
   @BindView(R.id.settings) SettingsWidget settingsWidget;
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.retry) View retryView;
   private BandSettingsPresenter presenter;
+
+  public static BaseFragment create() {
+    return new BandSettingFragment();
+  }
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

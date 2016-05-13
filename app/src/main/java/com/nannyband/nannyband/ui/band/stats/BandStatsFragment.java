@@ -35,15 +35,15 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class BandStatsFragment extends BaseFragment implements BandStatsView {
-  public static BaseFragment create() {
-    return new BandStatsFragment();
-  }
-
   @Inject Stats stats;
   @BindView(R.id.stats) StatsWidget statsView;
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.retry) View retryView;
   private BandStatsPresenter presenter;
+
+  public static BaseFragment create() {
+    return new BandStatsFragment();
+  }
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

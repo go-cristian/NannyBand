@@ -9,7 +9,7 @@
 
   <include layout="@layout/retry" />
 
-  <com.nannyband.nannyband.ui.band.notifications.NotificationsWidget
+  <com.nannyband.nannyband.ui.band.notifications.widget.NotificationsWidget
     android:id="@+id/notifications"
     android:layout_width="match_parent"
     android:layout_height="match_parent"

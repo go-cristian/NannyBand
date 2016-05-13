@@ -27,6 +27,7 @@ import com.nannyband.nannyband.R;
 import com.nannyband.nannyband.data.notifications.BandNotification;
 import com.nannyband.nannyband.data.notifications.BandNotifications;
 import com.nannyband.nannyband.ui.BaseFragment;
+import com.nannyband.nannyband.ui.band.notifications.widget.NotificationsWidget;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -34,15 +35,15 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 public class BandNotificationsFragment extends BaseFragment implements BandNotificationsView {
-  public static BaseFragment create() {
-    return new BandNotificationsFragment();
-  }
-
   @Inject BandNotifications notifications;
   @BindView(R.id.notifications) NotificationsWidget notificationsView;
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.retry) View retryView;
   private BandNotificationsPresenter presenter;
+
+  public static BaseFragment create() {
+    return new BandNotificationsFragment();
+  }
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

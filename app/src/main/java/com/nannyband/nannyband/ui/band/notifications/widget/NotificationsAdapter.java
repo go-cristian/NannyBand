@@ -43,6 +43,7 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationHolde
   }
 
   public void add(List<BandNotification> notifications) {
+    this.notifications.clear();
     this.notifications.addAll(notifications);
     notifyDataSetChanged();
   }

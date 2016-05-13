@@ -14,14 +14,10 @@
  * is strictly forbidden unless prior written permission is obtained
  * from {The Company}.
  */
-package com.nannyband.nannyband.data.stats;
+package com.nannyband.nannyband.data.location.service;
 
-import com.firebase.client.Firebase;
-import dagger.Module;
-import dagger.Provides;
+import com.nannyband.nannyband.data.location.BandLocation;
 
-@Module public class StatsModule {
-  @Provides public Stats stats(Firebase firebase) {
-    return new FirebaseStats(firebase);
-  }
+public interface LocationService {
+  void locate(BandLocation.Callback callback);
 }

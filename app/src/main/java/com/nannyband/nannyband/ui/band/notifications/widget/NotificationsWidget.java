@@ -14,7 +14,7 @@
  * is strictly forbidden unless prior written permission is obtained
  * from {The Company}.
  */
-package com.nannyband.nannyband.ui.band.notifications;
+package com.nannyband.nannyband.ui.band.notifications.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;

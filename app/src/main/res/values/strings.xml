@@ -9,4 +9,5 @@
   <string name="stats_title">Estado</string>
   <string name="notifications_title">Notificaciones</string>
   <string name="settings_title">Zonas seguras</string>
+  <string name="location_error">Error al obtener la ubicación</string>
 </resources>

@@ -16,21 +16,12 @@
  */
 package com.nannyband.nannyband.data.notifications;
 
+import com.firebase.client.Firebase;
 import dagger.Module;
 import dagger.Provides;
-import java.util.ArrayList;
-import java.util.List;
 
 @Module public class NotificationsModule {
-  @Provides public BandNotifications bandNotifications() {
-    return new BandNotifications() {
-      @Override public void subscribe(Callback callback) {
-        List<BandNotification> notifications = new ArrayList<>();
-        notifications.add(BandNotification.create("Notificacion", "Descripcion", "hace dos dias"));
-        notifications.add(BandNotification.create("Notificacion", "Descripcion", "hace dos dias"));
-        notifications.add(BandNotification.create("Notificacion", "Descripcion", "hace dos dias"));
-        callback.onSuccess(notifications);
-      }
-    };
+  @Provides public BandNotifications bandNotifications(Firebase firebase) {
+    return new FirebaseBandNotifications(firebase);
   }
 }

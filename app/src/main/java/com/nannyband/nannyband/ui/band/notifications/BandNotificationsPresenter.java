@@ -18,6 +18,7 @@ package com.nannyband.nannyband.ui.band.notifications;
 
 import com.nannyband.nannyband.data.notifications.BandNotification;
 import com.nannyband.nannyband.data.notifications.BandNotifications;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BandNotificationsPresenter {
@@ -33,6 +34,7 @@ public class BandNotificationsPresenter {
   public void subscribeNotifications() {
     if (!updated) view.showLoading();
     notifications.subscribe(new BandNotifications.Callback() {
+
       @Override public void onSuccess(List<BandNotification> notifications) {
         view.updateNotifications(notifications);
       }

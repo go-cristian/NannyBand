@@ -20,6 +20,7 @@ import android.app.Application;
 import com.nannyband.nannyband.data.AppComponent;
 import com.nannyband.nannyband.data.DaggerAppComponent;
 import com.nannyband.nannyband.data.auth.AuthModule;
+import com.nannyband.nannyband.data.common.CommonModule;
 import com.nannyband.nannyband.data.configuration.BandSettingsModule;
 import com.nannyband.nannyband.data.location.BandLocationModule;
 import com.nannyband.nannyband.data.notifications.NotificationsModule;
@@ -39,6 +40,7 @@ public class App extends Application {
         .bandSettingsModule(new BandSettingsModule())
         .notificationsModule(new NotificationsModule())
         .statsModule(new StatsModule())
+        .commonModule(new CommonModule(this))
         .build();
   }
 

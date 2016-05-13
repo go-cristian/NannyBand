@@ -16,14 +16,23 @@
  */
 package com.nannyband.nannyband.ui.band.location;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,19 +49,20 @@ import static android.view.View.VISIBLE;
 public class BandLocationFragment extends BaseFragment
     implements BandLocationView, OnMapReadyCallback {
 
-  private GoogleMap googleMap;
-  private Location band;
-  private Location myself;
-
-  public static BaseFragment create() {
-    return new BandLocationFragment();
-  }
+  private static final int PERMISSION_REQUEST_CODE = 100;
 
   @Inject BandLocation location;
   @BindView(R.id.location) MapView locationView;
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.retry) View retryView;
+  private GoogleMap googleMap;
+  private Location band;
+  private Location myself;
   private BandLocationPresenter presenter;
+
+  public static BaseFragment create() {
+    return new BandLocationFragment();
+  }
 
   @Nullable @Override
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -66,7 +76,41 @@ public class BandLocationFragment extends BaseFragment
 
   @Override public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    presenter.bandLocation();
+    locationView.onCreate(savedInstanceState);
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+      if (checkPermission()) {
+        presenter.bandLocation();
+      } else {
+        requestPermissions();
+      }
+    } else {
+      presenter.bandLocation();
+    }
+  }
+
+  @SuppressLint("NewApi") private void requestPermissions() {
+    ActivityCompat.requestPermissions(getActivity(), new String[] {
+        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
+    }, PERMISSION_REQUEST_CODE);
+  }
+
+  @SuppressLint("NewApi") private boolean checkPermission() {
+    return ContextCompat.checkSelfPermission(getActivity(),
+        Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        && ContextCompat.checkSelfPermission(getActivity(),
+        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+  }
+
+  @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+      @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    if (requestCode == PERMISSION_REQUEST_CODE
+        && grantResults[0] == PackageManager.PERMISSION_GRANTED
+        && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+      presenter.bandLocation();
+    } else {
+      Toast.makeText(getContext(), R.string.location_error, Toast.LENGTH_SHORT).show();
+    }
   }
 
   @Override public void showLoading() {
@@ -81,25 +125,34 @@ public class BandLocationFragment extends BaseFragment
     show(locationView);
     locationView.getMapAsync(this);
     this.band = band;
+    locateBand();
   }
 
   @Override public void showMyLocation(Location myself) {
     show(locationView);
     this.myself = myself;
-    if (googleMap != null) {
-      googleMap.addMarker(
-          new MarkerOptions().position(new LatLng(myself.getLatitude(), myself.getLongitude())));
+    locateMyself();
+  }
+
+  private void locateMyself() {
+    if (googleMap != null && myself != null) {
+      LatLng myselfLocation = new LatLng(myself.getLatitude(), myself.getLongitude());
+      googleMap.addMarker(new MarkerOptions().position(myselfLocation));
+    }
+  }
+
+  private void locateBand() {
+    if (googleMap != null && band != null) {
+      LatLng bandLocation = new LatLng(band.getLatitude(), band.getLongitude());
+      googleMap.addMarker(new MarkerOptions().position(bandLocation));
+      googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bandLocation, 15));
     }
   }
 
   @Override public void onMapReady(GoogleMap googleMap) {
     this.googleMap = googleMap;
-    googleMap.addMarker(
-        new MarkerOptions().position(new LatLng(band.getLatitude(), band.getLongitude())));
-    if (myself != null) {
-      googleMap.addMarker(
-          new MarkerOptions().position(new LatLng(myself.getLatitude(), myself.getLongitude())));
-    }
+    locateBand();
+    locateMyself();
   }
 
   private void show(View view) {

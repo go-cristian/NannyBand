@@ -36,17 +36,15 @@ import static android.view.View.VISIBLE;
 
 public class LoginActivity extends BaseActivity implements LoginView {
   private static final int CODE = 100;
-
-  public static Intent intent(BaseActivity activity) {
-    return new Intent(activity, LoginActivity.class);
-  }
-
   @Inject Auth auth;
-
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.login) View loginView;
   @BindView(R.id.login_password) EditText passwordInputView;
   private LoginPresenter presenter;
+
+  public static Intent intent(BaseActivity activity) {
+    return new Intent(activity, LoginActivity.class);
+  }
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

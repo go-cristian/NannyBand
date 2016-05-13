@@ -17,17 +17,16 @@
 package com.nannyband.nannyband.ui.band;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ImageSpan;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.nannyband.nannyband.R;
@@ -39,26 +38,35 @@ import com.nannyband.nannyband.ui.band.stats.BandStatsFragment;
 
 public class BandActivity extends BaseActivity {
 
+  @BindView(R.id.tabs) TabLayout tabs;
+  @BindView(R.id.viewpager) ViewPager pager;
+
   public static Intent intent(BaseActivity activity) {
     return new Intent(activity, BandActivity.class);
   }
-
-  @BindView(R.id.tabs) TabLayout tabs;
-  @BindView(R.id.viewpager) ViewPager pager;
 
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.band);
     ButterKnife.bind(this);
-    pager.setAdapter(new Adapter(getSupportFragmentManager()));
+    Adapter adapter = new Adapter(this);
+    pager.setAdapter(adapter);
+    pager.setOffscreenPageLimit(4);
     tabs.setupWithViewPager(pager);
-    tabs.setTabMode(TabLayout.MODE_SCROLLABLE);
+    tabs.setTabMode(TabLayout.MODE_FIXED);
+    for (int i = 0; i < tabs.getTabCount(); i++) {
+      TabLayout.Tab tab = tabs.getTabAt(i);
+      tab.setCustomView(adapter.getTabView(i));
+    }
   }
 
   private class Adapter extends FragmentPagerAdapter {
 
-    public Adapter(FragmentManager fm) {
-      super(fm);
+    private final BaseActivity activity;
+
+    public Adapter(BaseActivity activity) {
+      super(activity.getSupportFragmentManager());
+      this.activity = activity;
     }
 
     @Override public Fragment getItem(int position) {
@@ -79,36 +87,39 @@ public class BandActivity extends BaseActivity {
       return 4;
     }
 
-    @Override public CharSequence getPageTitle(int position) {
+    public @NonNull View getTabView(int position) {
+
       String title;
       int icon;
       switch (position) {
         case 0:
           title = getString(R.string.location_title);
-          icon = R.drawable.ic_add_location_black_24dp;
+          icon = R.drawable.ic_action_location;
           break;
         case 1:
           title = getString(R.string.stats_title);
-          icon = R.drawable.ic_status_check_black_24dp;
+          icon = R.drawable.ic_action_alert;
           break;
         case 2:
           title = getString(R.string.notifications_title);
-          icon = R.drawable.ic_notification_black_24dp;
+          icon = R.drawable.ic_action_notifications;
           break;
         case 3:
           title = getString(R.string.settings_title);
-          icon = R.drawable.ic_settings_black_24dp;
+          icon = R.drawable.ic_action_settings;
           break;
         default:
           throw new IllegalStateException();
       }
 
-      Drawable image = getResources().getDrawable(icon);
-      image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-      SpannableString sb = new SpannableString("   " + title);
-      ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-      sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-      return sb;
+      View tab = LayoutInflater.from(activity).inflate(R.layout.tab, null);
+      TextView tabText = (TextView) tab.findViewById(R.id.tab_title);
+      tabText.setText(title);
+      tabText.setCompoundDrawablesWithIntrinsicBounds(0, icon, 0, 0);
+      if (position == 0) {
+        tab.setSelected(true);
+      }
+      return tab;
     }
   }
 }

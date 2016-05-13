@@ -16,18 +16,29 @@
  */
 package com.nannyband.nannyband.data.location;
 
-import com.firebase.client.Firebase;
+import android.location.Location;
 import com.nannyband.nannyband.data.common.gps.GPS;
 import com.nannyband.nannyband.data.location.service.LocationService;
-import dagger.Module;
-import dagger.Provides;
 
-@Module public class BandLocationModule {
-  @Provides public BandLocation bandLocation(GPS gps, LocationService service) {
-    return new DefaultBandLocation(gps, service);
+public class DefaultBandLocation implements BandLocation {
+  private final GPS gps;
+  private final LocationService service;
+
+  public DefaultBandLocation(GPS gps, LocationService service) {
+    this.gps = gps;
+    this.service = service;
   }
 
-  @Provides public LocationService locationService(Firebase firebase) {
-    return new FirebaseLocationService(firebase);
+  @Override public void locate(final Callback callback) {
+    gps.locate(new GPS.Callback() {
+      @Override public void onLocated(Location location) {
+        callback.onMyselfLocated(location);
+      }
+
+      @Override public void onFailure() {
+        //do nothing
+      }
+    });
+    service.locate(callback);
   }
 }

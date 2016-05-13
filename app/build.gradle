@@ -29,7 +29,7 @@ android {
     versionName "1.0"
 
     buildConfigField "int", "SPLASH_TIME", "2_000"
-    buildConfigField "String", "BASE_URL", "\"https://api.forecast.io/\""
+    buildConfigField "String", "BASE_URL", "\"https://nannyband.firebaseio.com\""
     multiDexEnabled true
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -45,6 +45,7 @@ android {
 
   packagingOptions {
     exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE-FIREBASE.txt'
     exclude 'META-INF/NOTICE'
     exclude 'META-INF/services/javax.annotation.processing.Processor'
   }
@@ -87,7 +88,8 @@ dependencies {
   compile 'com.android.support:recyclerview-v7:23.4.0'
   compile 'com.google.android.gms:play-services-maps:8.4.0'
 
-  compile 'com.estimote:sdk:0.9.4@aar'
+  compile 'com.firebase:firebase-client-android:2.5.2+'
+  compile 'uk.co.chrisjenx:calligraphy:2.2.0'
 
   compile 'com.github.bumptech.glide:glide:3.7.0'
   compile 'jp.wasabeef:glide-transformations:2.0.0'

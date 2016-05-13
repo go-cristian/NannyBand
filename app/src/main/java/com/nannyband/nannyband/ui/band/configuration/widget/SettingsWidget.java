@@ -22,7 +22,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import com.nannyband.nannyband.data.configuration.SafetyZone;
-import com.nannyband.nannyband.ui.band.configuration.widget.SettingsAdapter;
 import java.util.List;
 
 public class SettingsWidget extends RecyclerView {

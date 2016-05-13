@@ -17,6 +17,7 @@
 package com.nannyband.nannyband.data;
 
 import com.nannyband.nannyband.data.auth.AuthModule;
+import com.nannyband.nannyband.data.common.CommonModule;
 import com.nannyband.nannyband.data.configuration.BandSettingsModule;
 import com.nannyband.nannyband.data.location.BandLocationModule;
 import com.nannyband.nannyband.data.notifications.NotificationsModule;
@@ -32,7 +33,7 @@ import dagger.Component;
 
 @Component(modules = {
     AuthModule.class, BandSettingsModule.class, BandLocationModule.class, NotificationsModule.class,
-    BandSessionModule.class, StatsModule.class
+    BandSessionModule.class, StatsModule.class, CommonModule.class
 }) public interface AppComponent {
   void inject(BandLocationFragment fragment);
 
