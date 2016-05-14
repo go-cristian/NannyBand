@@ -37,6 +37,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.nannyband.nannyband.R;
 import com.nannyband.nannyband.data.location.BandLocation;
@@ -56,6 +57,7 @@ public class BandLocationFragment extends BaseFragment
   @BindView(R.id.loading) View loadingView;
   @BindView(R.id.retry) View retryView;
   private GoogleMap googleMap;
+  private Marker position;
   private Location band;
   private Location myself;
   private BandLocationPresenter presenter;
@@ -86,6 +88,11 @@ public class BandLocationFragment extends BaseFragment
     } else {
       presenter.bandLocation();
     }
+  }
+
+  @Override public void onResume() {
+    super.onResume();
+    locationView.onResume();
   }
 
   @SuppressLint("NewApi") private void requestPermissions() {
@@ -144,13 +151,18 @@ public class BandLocationFragment extends BaseFragment
   private void locateBand() {
     if (googleMap != null && band != null) {
       LatLng bandLocation = new LatLng(band.getLatitude(), band.getLongitude());
-      googleMap.addMarker(new MarkerOptions().position(bandLocation));
       googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(bandLocation, 15));
+
+      if (position == null) {
+        position = googleMap.addMarker(new MarkerOptions().position(bandLocation));
+      }
+      position.setPosition(bandLocation);
     }
   }
 
   @Override public void onMapReady(GoogleMap googleMap) {
     this.googleMap = googleMap;
+    googleMap.getUiSettings().setScrollGesturesEnabled(false);
     locateBand();
     locateMyself();
   }

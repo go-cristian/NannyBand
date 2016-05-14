@@ -26,6 +26,7 @@ import com.nannyband.nannyband.data.location.BandLocationModule;
 import com.nannyband.nannyband.data.notifications.NotificationsModule;
 import com.nannyband.nannyband.data.session.BandSessionModule;
 import com.nannyband.nannyband.data.stats.StatsModule;
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class App extends Application {
 
@@ -33,6 +34,10 @@ public class App extends Application {
 
   @Override public void onCreate() {
     super.onCreate();
+    CalligraphyConfig.initDefault(
+        new CalligraphyConfig.Builder().setDefaultFontPath("fonts/Helvetica.otf")
+            .setFontAttrId(R.attr.fontPath)
+            .build());
     injector = DaggerAppComponent.builder()
         .authModule(new AuthModule())
         .bandLocationModule(new BandLocationModule())

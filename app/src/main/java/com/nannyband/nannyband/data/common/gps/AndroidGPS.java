@@ -28,6 +28,24 @@ import com.nannyband.nannyband.App;
   private final App app;
   private LocationManager locationManager;
   private Callback callback;
+  private final LocationListener listener = new LocationListener() {
+    @Override public void onLocationChanged(Location location) {
+      callback.onLocated(location);
+      locationManager.removeUpdates(listener);
+    }
+
+    @Override public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override public void onProviderDisabled(String provider) {
+      callback.onFailure();
+    }
+  };
 
   public AndroidGPS(App app) {
     this.app = app;
@@ -45,23 +63,6 @@ import com.nannyband.nannyband.App;
   }
 
   private void requestLocation() {
-    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000,
-        new LocationListener() {
-          @Override public void onLocationChanged(Location location) {
-            callback.onLocated(location);
-          }
-
-          @Override public void onStatusChanged(String provider, int status, Bundle extras) {
-
-          }
-
-          @Override public void onProviderEnabled(String provider) {
-
-          }
-
-          @Override public void onProviderDisabled(String provider) {
-            callback.onFailure();
-          }
-        });
+    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 1000, listener);
   }
 }
